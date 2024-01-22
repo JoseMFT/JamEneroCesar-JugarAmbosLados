@@ -7,9 +7,12 @@ public class PlayerMov : MonoBehaviour
     [SerializeField]
     Transform [] ladosSpawn;
 
+    [SerializeField]
+    GameObject [] portales;
+
     int indexLados = 0;
     float timerShift = 0f;
-    const float kTiempoParaShift = 2f, kVelocidadDeMovimiento = 7f;
+    const float kTiempoParaShift = .5f, kVelocidadDeMovimiento = 7f;
     bool puedeCambiar = true;
     Rigidbody rbPlayer;
 
@@ -55,6 +58,23 @@ public class PlayerMov : MonoBehaviour
     }
 
     public void TeleportarJugador () {
+
+        foreach (GameObject portal in portales) {
+            if (portal.activeSelf == true) {
+                portal.SetActive(false);
+            }
+        }
+
+        foreach (GameObject portal in portales) {
+            portal.SetActive(true);
+
+            if (portal == portales [indexLados].gameObject) {
+                portal.transform.position = gameObject.transform.position;
+            } else {
+
+                portal.transform.position = portal.transform.parent.position;
+            }
+        }
 
         if (indexLados < ladosSpawn.Length - 1) {
             indexLados++;

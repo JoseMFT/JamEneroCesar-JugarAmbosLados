@@ -5,7 +5,10 @@ using UnityEngine;
 public class MeteoritoBehavior : MonoBehaviour
 {
     Vector3 destinoMeteorito, spawn;
-    float velocidadMeteorito = 10f;
+    float velocidadMeteorito = 5f;
+
+    [SerializeField]    
+    GameObject explosionFX;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +31,18 @@ public class MeteoritoBehavior : MonoBehaviour
 
     private void OnCollisionEnter (Collision collision) {
         if (collision.gameObject.name.Contains("Laser")) {
-            ScoreControlador.instanceControlador.puntuacionJugador += 100f;
+            ScoreControlador.instanceControlador.puntuacionJugador += 15f;
             Destroy(gameObject, .1f);
+        } else if (collision.gameObject.tag == "Player") {
+            collision.gameObject.GetComponent<FuelControlador>().RestarCombustible();
+            gameObject.GetComponent<SphereCollider>().enabled = false;
+            Destroy(gameObject, 1f);
         }
+    }
+
+    public void DestruirObjeto () {
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        explosionFX.SetActive(true);
+        Destroy(gameObject, .3f);
     }
 }
