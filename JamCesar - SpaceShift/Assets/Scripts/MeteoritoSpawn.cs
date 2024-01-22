@@ -12,28 +12,27 @@ public class MeteoritoSpawn : MonoBehaviour
 
     int indexMeteoritos = 0;
     float timerMeteoritos;
-    const float kTiempoEntreMeteoritos = 5f;
 
     public GameObject jugador;
     // Start is called before the first frame update
     void Start()
     {
-        
+        timerMeteoritos = Random.Range(.3f, .5f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timerMeteoritos < kTiempoEntreMeteoritos) {
-            timerMeteoritos += Time.deltaTime;
+        if (timerMeteoritos > 0f) {
+            timerMeteoritos -= Time.deltaTime;
         } else {
-            timerMeteoritos = 0f;
+            timerMeteoritos = Random.Range (1f, 5f);
             CrearMeteorito();
         }
     }
 
     public void CrearMeteorito () {
-        int indexSpawn = Mathf.FloorToInt(Random.Range(0f, 1.1f));
+        int indexSpawn = Mathf.FloorToInt(Random.Range(0f, 1.99f));
         indexMeteoritos = Mathf.FloorToInt(Random.Range(0f, meteoritosPool.Length - .01f));
         Instantiate(meteoritosPool [indexMeteoritos], spawnsMeteoritos[indexSpawn].transform.position, Quaternion.identity);
     }

@@ -10,7 +10,6 @@ public class ScoreControlador : MonoBehaviour
     TextMeshProUGUI marcoPutnuacion;
     public float velocidad = 1f;
     public float puntuacionJugador = 0f;
-    float timerSumarPuntos = 1f, puntosPorTiempo = 100f;
     int puntuacionReal = 0;
     int currentScore = 0, prevScore = 0;
 
@@ -29,13 +28,11 @@ public class ScoreControlador : MonoBehaviour
     {
         currentScore = puntuacionReal;
 
-        puntuacionJugador += Time.deltaTime;
+        puntuacionJugador += Time.deltaTime * 1.25f;
         puntuacionReal = Mathf.FloorToInt(puntuacionJugador);
 
         if (velocidad < 2f) {
-            if (Mathf.Approximately(puntuacionJugador % 60f, 0f) == true) {
-                velocidad += .1f;
-            }
+            velocidad = 1 + puntuacionJugador / 2000f;
         }
 
         if (prevScore != currentScore) {
@@ -45,6 +42,7 @@ public class ScoreControlador : MonoBehaviour
     }
 
     public void CambiarPutuacionTexto () {
+        UnityEngine.Debug.Log(velocidad.ToString());
         marcoPutnuacion.text = "Score: " + currentScore.ToString();
     }
 }
