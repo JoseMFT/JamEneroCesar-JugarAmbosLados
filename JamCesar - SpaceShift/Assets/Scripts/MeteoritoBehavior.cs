@@ -33,8 +33,10 @@ public class MeteoritoBehavior : MonoBehaviour
         if (collision.gameObject.name.Contains("Laser")) {
             ScoreControlador.instanceControlador.puntuacionJugador += 15f;
             Destroy(gameObject, .1f);
-        } else if (collision.gameObject.tag == "Player") {
+
+        } else if (collision.gameObject.name.Contains ("Player")) {
             collision.gameObject.GetComponent<FuelControlador>().RestarCombustible();
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
             gameObject.GetComponent<SphereCollider>().enabled = false;
             Destroy(gameObject, 1f);
         }

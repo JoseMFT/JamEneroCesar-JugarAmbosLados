@@ -53,7 +53,7 @@ public class PlayerMov : MonoBehaviour
         Vector3 destinoJugador = new Vector3(gameObject.transform.position.x + movHorizontal * Time.deltaTime * kVelocidadDeMovimiento, gameObject.transform.position.y, gameObject.transform.position.z);
         rbPlayer.MovePosition (destinoJugador);
 
-        gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 30f * movHorizontal * (-1f), gameObject.transform.rotation.z);
+        gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 180f + 30f * movHorizontal * (-1f), 180f);
 
     }
 
@@ -69,6 +69,7 @@ public class PlayerMov : MonoBehaviour
             portal.SetActive(true);
 
             if (portal == portales [indexLados].gameObject) {
+                Vector3 aparicionPortal = new Vector3(gameObject.transform.position.x, portal.transform.parent.position.y, portal.transform.parent.position.z);
                 portal.transform.position = gameObject.transform.position;
             } else {
 
@@ -82,6 +83,8 @@ public class PlayerMov : MonoBehaviour
             indexLados = 0;
         }
 
-        gameObject.transform.position = ladosSpawn [indexLados].position;
+        Vector3 posicionDeTP = new Vector3(ladosSpawn [indexLados].position.x, ladosSpawn [indexLados].position.y, gameObject.transform.position.z);
+        gameObject.transform.position = posicionDeTP;
+
     }
 }
