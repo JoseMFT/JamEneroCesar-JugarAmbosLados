@@ -14,7 +14,7 @@ public class FondoMovimiento : MonoBehaviour
     private void Update()
     {
         transform.Translate(translation:Vector3.down*speed*Time.deltaTime*ScoreControlador.instanceControlador.velocidad);
-        if (transform.position.y < startPosition.y - 96.7f)
+        if (transform.position.y < -10.56)
         {
             transform.position = startPosition;
         }
