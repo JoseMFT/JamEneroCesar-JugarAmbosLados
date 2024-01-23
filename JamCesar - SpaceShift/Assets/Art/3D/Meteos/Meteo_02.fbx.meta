@@ -3,7 +3,12 @@ guid: 819d6c75441abeb4385e47a16c21aac6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meteo_02
+    second: {fileID: 2100000, guid: fe7f864a5ae1f554b80bbac881970050, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
