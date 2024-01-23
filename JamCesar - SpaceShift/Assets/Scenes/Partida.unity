@@ -1143,6 +1143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e596c3d23106bc347a963f510cf8d0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 1695894635813958409, guid: 1c086f600a80b514d918198952b9b30e, type: 3}
+  player: {fileID: 67968998}
 --- !u!1 &662928168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,6 +1314,7 @@ MonoBehaviour:
   puntuacionJugador: 0
   currentScore: 0
   prevScore: 0
+  endGame: 0
 --- !u!4 &687270318
 Transform:
   m_ObjectHideFlags: 0
@@ -4353,7 +4356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7177713414123467091, guid: 81f3fdf0258a7fe4ea876d8756e59025, type: 3}
       propertyPath: fuel
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7177713414123467091, guid: 81f3fdf0258a7fe4ea876d8756e59025, type: 3}
       propertyPath: sliderCombustible
