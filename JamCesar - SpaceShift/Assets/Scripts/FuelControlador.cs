@@ -44,4 +44,6 @@ public class FuelControlador : MonoBehaviour
     public void RestarCombustible () {
         fuel -= 5f;
     }
+
+    
 }

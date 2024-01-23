@@ -33,7 +33,7 @@ public class MainMenu : MonoBehaviour
         EntryButtons();
     }
 
-    private void EntryButtons()
+    public void EntryButtons()
     {
         button_Play.SetActive(true);
         button_Options.SetActive(true);
