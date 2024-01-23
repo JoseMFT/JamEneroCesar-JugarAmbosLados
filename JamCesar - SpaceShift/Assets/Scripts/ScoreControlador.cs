@@ -13,6 +13,8 @@ public class ScoreControlador : MonoBehaviour
     int puntuacionReal = 0;
     public int currentScore = 0, prevScore = 0;
 
+    public bool endGame = false;
+
     // Start is called before the first frame update
 
     private void Awake () {
@@ -26,19 +28,24 @@ public class ScoreControlador : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentScore = puntuacionReal;
+        if (endGame == false)
+        {
+            currentScore = puntuacionReal;
 
-        puntuacionJugador += Time.deltaTime * 1.25f;
-        puntuacionReal = Mathf.FloorToInt(puntuacionJugador);
+            puntuacionJugador += Time.deltaTime * 1.25f;
+            puntuacionReal = Mathf.FloorToInt(puntuacionJugador);
 
-        if (velocidad < 2f) {
-            velocidad = 1 + puntuacionJugador / 2000f;
+            if (velocidad < 2f)
+            {
+                velocidad = 1 + puntuacionJugador / 2000f;
+            }
+
+            if (prevScore != currentScore)
+            {
+                CambiarPutuacionTexto();
+            }
+            prevScore = currentScore;
         }
-
-        if (prevScore != currentScore) {
-            CambiarPutuacionTexto();
-        }
-        prevScore = currentScore;
     }
 
     public void CambiarPutuacionTexto () {

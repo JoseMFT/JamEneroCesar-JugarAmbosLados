@@ -8,15 +8,17 @@ public class ControladorPartida : MonoBehaviour
     GameObject endUI;*/
     public static ControladorPartida gameController;
     int endScore;
+
+    [SerializeField]
+    GameObject explosion, player;
+    Vector3 playerPosition;
     // Start is called before the first frame update
     private void Awake () {
-        
         gameController = this;
     }
 
     void Start()
     {
-        Time.timeScale = 1.0f;
         //endUI.SetActive(false);
         Debug.Log("MaxScore:" + PlayerPrefs.GetInt("MaxScore"));
     }
@@ -29,7 +31,10 @@ public class ControladorPartida : MonoBehaviour
 
     public void FinalizarPartida () 
     {
-        Time.timeScale = 0f;
+        playerPosition = player.transform.position;
+        player.SetActive(false);
+        Instantiate(explosion, playerPosition, Quaternion.identity);
+        ScoreControlador.instanceControlador.endGame = true;
         endScore = ScoreControlador.instanceControlador.currentScore;
         if (PlayerPrefs.GetInt("MaxScore") < ScoreControlador.instanceControlador.currentScore)
         {
