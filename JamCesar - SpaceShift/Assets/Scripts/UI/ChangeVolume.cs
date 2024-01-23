@@ -20,7 +20,7 @@ public class ChangeVolume : MonoBehaviour
 
     #endregion
 
-    void Start()
+    void start()
     {
         LoadVolume();
     }
