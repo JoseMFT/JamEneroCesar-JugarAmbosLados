@@ -11,7 +11,7 @@ public class ScoreControlador : MonoBehaviour
     public float velocidad = 1f;
     public float puntuacionJugador = 0f;
     int puntuacionReal = 0;
-    int currentScore = 0, prevScore = 0;
+    public int currentScore = 0, prevScore = 0;
 
     // Start is called before the first frame update
 

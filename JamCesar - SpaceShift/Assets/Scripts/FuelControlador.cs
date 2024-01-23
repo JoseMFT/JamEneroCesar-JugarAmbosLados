@@ -9,7 +9,7 @@ public class FuelControlador : MonoBehaviour
     [SerializeField]
     Slider sliderCombustible;
 
-    float fuel = 100f;
+    public float fuel = 100f;
     
     // Start is called before the first frame update
     void Start()
