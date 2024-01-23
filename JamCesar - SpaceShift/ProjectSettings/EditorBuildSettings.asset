@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 1171a8e3b0021d145974081447e8d558
   - enabled: 1
-    path: Assets/Scenes/Partida.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Partida copia.unity
+    guid: f1d06706da91c9947b1e9b81611271bb
+  - enabled: 1
+    path: Assets/Scenes/PantallaFinal.unity
+    guid: f69ad9d2dd54d0e4ea51bfe0cc48efea
   m_configObjects: {}

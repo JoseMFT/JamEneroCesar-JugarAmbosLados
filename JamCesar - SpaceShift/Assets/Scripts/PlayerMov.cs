@@ -5,16 +5,19 @@ using UnityEngine;
 public class PlayerMov : MonoBehaviour
 {
     [SerializeField]
-    Transform [] ladosSpawn;
+    GameObject [] prefabsPortales;
 
     [SerializeField]
     GameObject [] portales;
 
     int indexLados = 0;
-    float timerShift = 0f;
+    float timerShift = 0f, movHorizontal;
     const float kTiempoParaShift = .5f, kVelocidadDeMovimiento = 10f;
     bool puedeCambiar = true;
     Rigidbody rbPlayer;
+    bool pararDeCopiarPosicion = false;
+
+    Vector3 currentPos, prevPos;
 
     // Start is called before the first frame update
 
@@ -29,72 +32,100 @@ public class PlayerMov : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (puedeCambiar == true) {
+        if (OptionUI.instanceOpciones.isPaused == false) {
+            if (puedeCambiar == true) {
 
-            if (Input.GetKeyDown(KeyCode.LeftShift)) {
-                puedeCambiar = false;
-                TeleportarJugador();
-            }
+                if (Input.GetKeyDown(KeyCode.LeftShift)) {
+                    puedeCambiar = false;
+                    TeleportarJugador();
+                }
 
-        } else {
-
-            if (timerShift < kTiempoParaShift) {
-                timerShift += Time.deltaTime;
             } else {
-                timerShift = 0f;
-                puedeCambiar = true;
+
+                if (timerShift < kTiempoParaShift) {
+                    timerShift += Time.deltaTime;
+                } else {
+                    timerShift = 0f;
+                    puedeCambiar = true;
+                }
             }
         }
+
+
     }
 
     private void FixedUpdate () {
 
-        float movHorizontal = Input.GetAxis("Horizontal");
-        Vector3 destinoJugador = new Vector3(gameObject.transform.position.x + movHorizontal * Time.deltaTime * kVelocidadDeMovimiento, gameObject.transform.position.y, gameObject.transform.position.z);
-        rbPlayer.MovePosition (destinoJugador);
+        movHorizontal = Input.GetAxis("Horizontal");
+
+        switch (movHorizontal) {
+            case <= -1f:
+                movHorizontal = -1.000f;
+                break;
+
+            case >= 1f:
+                movHorizontal = 1.000f;
+                break;
+
+            default:
+                break;
+        }
+
+        Vector3 destinoJugador = new Vector3(gameObject.transform.position.x + (movHorizontal * Time.deltaTime * kVelocidadDeMovimiento), gameObject.transform.position.y, gameObject.transform.position.z);
+
+        gameObject.transform.position = destinoJugador;
 
         gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 180f + 30f * movHorizontal * (-1f), 180f);
+        UnityEngine.Debug.Log(rbPlayer.velocity.ToString());
 
+
+         if (indexLados == 0) {
+             portales [indexLados].gameObject.transform.position = new Vector3(gameObject.transform.position.x, portales [indexLados].transform.position.y, portales [indexLados].transform.position.z);
+             portales [1].gameObject.transform.position = new Vector3(-gameObject.transform.position.x, portales [1].transform.position.y, portales [1].transform.position.z);
+         } else {
+             portales [indexLados].gameObject.transform.position = new Vector3(gameObject.transform.position.x, portales [indexLados].transform.position.y, portales [indexLados].transform.position.z);
+             portales [0].gameObject.transform.position = new Vector3(-gameObject.transform.position.x, portales [0].transform.position.y, portales [0].transform.position.z);
+         }
+
+
+
+        if (rbPlayer.velocity.x != 0.0f) {
+            ReiniciarConstraintsRb();
+        }
+
+        //prevPos = currentPos;
     }
 
     public void TeleportarJugador () {
 
         foreach (GameObject portal in portales) {
-            if (portal.activeSelf == true) {
-                portal.SetActive(false);
-            }
-        }
-
-        foreach (GameObject portal in portales) {
-            portal.SetActive(true);
-
-            if (portal == portales [indexLados].gameObject) {
-                Vector3 aparicionPortal = new Vector3(gameObject.transform.position.x, portal.transform.parent.position.y, portal.transform.parent.position.z);
-                portal.transform.position = gameObject.transform.position;
+            if (portal == portales [0]) {
+                GameObject portalCreado;
+                portalCreado = Instantiate(prefabsPortales [0], portales[0].transform.position, Quaternion.Euler(90f, 0f, 0f));
+                Destroy(portalCreado, 5f);
             } else {
-
-                portal.transform.position = portal.transform.parent.position;
+                GameObject portalCreado;
+                portalCreado = Instantiate(prefabsPortales [1], portales [1].transform.position, Quaternion.Euler(90f, 0f, 0f));
+                Destroy(portalCreado, 5f);
             }
         }
 
-        if (indexLados < ladosSpawn.Length - 1) {
-            indexLados++;
+        if (indexLados == 0) {
+            indexLados = 1;
         } else {
             indexLados = 0;
         }
 
-        Vector3 posicionDeTP = new Vector3(ladosSpawn [indexLados].position.x, ladosSpawn [indexLados].position.y, gameObject.transform.position.z);
+        Vector3 posicionDeTP = new Vector3(portales [indexLados].transform.position.x, portales [indexLados].transform.position.y, gameObject.transform.position.z);
         gameObject.transform.position = posicionDeTP;
-
-
     }
 
     public void OnCollisionEnter (Collision collision) {
         if (collision.gameObject.name.Contains("Meteorito")) {
-            ReiniciarConstraintsRb();
         }
     }
     public void ReiniciarConstraintsRb () {
+        UnityEngine.Debug.Log("Reiniciando constraints rb");
         rbPlayer.constraints = RigidbodyConstraints.FreezeAll;
         rbPlayer.isKinematic = true;
         rbPlayer.useGravity = false;

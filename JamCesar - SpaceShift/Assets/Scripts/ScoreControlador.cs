@@ -28,28 +28,27 @@ public class ScoreControlador : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (endGame == false)
-        {
-            currentScore = puntuacionReal;
+        if (OptionUI.instanceOpciones.isPaused == false) {
+            if (endGame == false) {
+                currentScore = puntuacionReal;
 
-            puntuacionJugador += Time.deltaTime * 1.25f;
-            puntuacionReal = Mathf.FloorToInt(puntuacionJugador);
+                puntuacionJugador += Time.deltaTime * 1.25f;
+                puntuacionReal = Mathf.FloorToInt(puntuacionJugador);
 
-            if (velocidad < 2f)
-            {
-                velocidad = 1 + puntuacionJugador / 2000f;
+                if (velocidad < 2f) {
+                    velocidad = 1 + puntuacionJugador / 2000f;
+                }
+
+                if (prevScore != currentScore) {
+                    CambiarPutuacionTexto();
+                }
+                prevScore = currentScore;
             }
-
-            if (prevScore != currentScore)
-            {
-                CambiarPutuacionTexto();
-            }
-            prevScore = currentScore;
         }
     }
 
     public void CambiarPutuacionTexto () {
-        UnityEngine.Debug.Log(velocidad.ToString());
+        //UnityEngine.Debug.Log(velocidad.ToString());
         marcoPutnuacion.text = "Score: " + currentScore.ToString();
     }
 }

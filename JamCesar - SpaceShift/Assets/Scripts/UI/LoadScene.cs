@@ -8,5 +8,8 @@ public class LoadScene : MonoBehaviour
     public void ChangeScene(int SceneID)
     {
         SceneManager.LoadScene(SceneID);
+        if (SceneID == 1) {
+            Cursor.visible = false;
+        }
     }
 }

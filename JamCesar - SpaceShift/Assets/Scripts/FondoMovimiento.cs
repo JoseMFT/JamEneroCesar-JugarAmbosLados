@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FondoMovimiento : MonoBehaviour
 {
@@ -13,10 +14,11 @@ public class FondoMovimiento : MonoBehaviour
     }
     private void Update()
     {
-        transform.Translate(translation:Vector3.down*speed*Time.deltaTime*ScoreControlador.instanceControlador.velocidad);
-        if (transform.position.y < -10.56)
-        {
-            transform.position = startPosition;
+        if (OptionUI.instanceOpciones.isPaused == false && SceneManager.GetActiveScene().name == "Partida copia") {
+            transform.Translate(translation: Vector3.down * speed * Time.deltaTime * ScoreControlador.instanceControlador.velocidad);
+            if (transform.position.y < -10.56) {
+                transform.position = startPosition;
+            }
         }
     }
 }

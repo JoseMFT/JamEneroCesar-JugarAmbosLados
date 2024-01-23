@@ -23,11 +23,13 @@ public class MeteoritoSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timerMeteoritos > 0f) {
-            timerMeteoritos -= Time.deltaTime;
-        } else {
-            timerMeteoritos = FloatAleatorio (1f, 3.5f - ScoreControlador.instanceControlador.velocidad);
-            CrearMeteorito();
+        if (OptionUI.instanceOpciones.isPaused == false) {
+            if (timerMeteoritos > 0f) {
+                timerMeteoritos -= Time.deltaTime;
+            } else {
+                timerMeteoritos = FloatAleatorio(1f, 3.5f - ScoreControlador.instanceControlador.velocidad);
+                CrearMeteorito();
+            }
         }
     }
 

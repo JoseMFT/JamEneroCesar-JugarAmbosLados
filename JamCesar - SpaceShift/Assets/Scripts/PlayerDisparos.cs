@@ -21,18 +21,20 @@ public class PlayerDisparos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (puedeDisparar == true) {
+        if (OptionUI.instanceOpciones.isPaused == false) {
+            if (puedeDisparar == true) {
 
-            if (Input.GetKey(KeyCode.Space)) {
-                puedeDisparar = false;
-                DispararLaser();
-            }
-        } else {
-            if (timerEspacio < tiempoParaEspacio) {
-                timerEspacio += Time.deltaTime;
+                if (Input.GetKey(KeyCode.Space)) {
+                    puedeDisparar = false;
+                    DispararLaser();
+                }
             } else {
-                timerEspacio = 0f;
-                puedeDisparar = true;
+                if (timerEspacio < tiempoParaEspacio) {
+                    timerEspacio += Time.deltaTime;
+                } else {
+                    timerEspacio = 0f;
+                    puedeDisparar = true;
+                }
             }
         }
     }

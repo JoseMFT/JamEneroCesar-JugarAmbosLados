@@ -22,11 +22,13 @@ public class FuelSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (tiempoParaSpawn > 0f) {
-            tiempoParaSpawn -= Time.deltaTime;
-        } else {
-            InstanciarCombustibles();
-            tiempoParaSpawn = Random.Range(7.5f, 15f - 2.5f* ScoreControlador.instanceControlador.velocidad);
+        if (OptionUI.instanceOpciones.isPaused == false) {
+            if (tiempoParaSpawn > 0f) {
+                tiempoParaSpawn -= Time.deltaTime;
+            } else {
+                InstanciarCombustibles();
+                tiempoParaSpawn = Random.Range(7.5f, 15f - 2.5f * ScoreControlador.instanceControlador.velocidad);
+            }
         }
     }
 

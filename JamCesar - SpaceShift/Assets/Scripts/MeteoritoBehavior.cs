@@ -32,6 +32,9 @@ public class MeteoritoBehavior : MonoBehaviour
     private void OnCollisionEnter (Collision collision) {
         if (collision.gameObject.name.Contains("Laser")) {
             ScoreControlador.instanceControlador.puntuacionJugador += 15f;
+            gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+            gameObject.GetComponent<SphereCollider>().enabled = false;
+            Instantiate(explosionFX, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject, .1f);
 
         } else if (collision.gameObject.name.Contains ("Player")) {

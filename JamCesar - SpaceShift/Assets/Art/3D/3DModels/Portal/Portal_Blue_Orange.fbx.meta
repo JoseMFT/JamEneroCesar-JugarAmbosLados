@@ -3,7 +3,12 @@ guid: 8d5a0062cc1797a4d9db38459ee0831f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Portal_blue
+    second: {fileID: 2100000, guid: 0a57b89698af5f04f92784ffe3b1f8f5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

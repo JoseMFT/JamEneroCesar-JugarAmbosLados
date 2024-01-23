@@ -20,13 +20,15 @@ public class FuelControlador : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (fuel > 0f) {
-            fuel -= Time.deltaTime * ScoreControlador.instanceControlador.velocidad;
-        } else {
-            ControladorPartida.gameController.FinalizarPartida();
+        if (OptionUI.instanceOpciones.isPaused == false) {
+            if (fuel > 0f) {
+                fuel -= Time.deltaTime * ScoreControlador.instanceControlador.velocidad;
+            } else {
+                ControladorPartida.gameController.FinalizarPartida();
+            }
+            
+            sliderCombustible.value = fuel;
         }
-        
-        sliderCombustible.value = fuel;
     }
 
     private void OnTriggerEnter (Collider other) {
