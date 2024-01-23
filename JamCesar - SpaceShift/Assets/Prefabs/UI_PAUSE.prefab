@@ -3266,7 +3266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6583764005541033117}
   m_Layer: 0
-  m_Name: PAUSE
+  m_Name: UI_PAUSE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
