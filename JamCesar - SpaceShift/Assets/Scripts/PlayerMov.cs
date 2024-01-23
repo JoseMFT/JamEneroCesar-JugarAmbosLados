@@ -12,7 +12,7 @@ public class PlayerMov : MonoBehaviour
 
     int indexLados = 0;
     float timerShift = 0f;
-    const float kTiempoParaShift = .5f, kVelocidadDeMovimiento = 7f;
+    const float kTiempoParaShift = .5f, kVelocidadDeMovimiento = 10f;
     bool puedeCambiar = true;
     Rigidbody rbPlayer;
 
@@ -86,5 +86,19 @@ public class PlayerMov : MonoBehaviour
         Vector3 posicionDeTP = new Vector3(ladosSpawn [indexLados].position.x, ladosSpawn [indexLados].position.y, gameObject.transform.position.z);
         gameObject.transform.position = posicionDeTP;
 
+
+    }
+
+    public void OnCollisionEnter (Collision collision) {
+        if (collision.gameObject.name.Contains("Meteorito")) {
+            ReiniciarConstraintsRb();
+        }
+    }
+    public void ReiniciarConstraintsRb () {
+        rbPlayer.constraints = RigidbodyConstraints.FreezeAll;
+        rbPlayer.isKinematic = true;
+        rbPlayer.useGravity = false;
+        rbPlayer.isKinematic = false;
+        rbPlayer.constraints &= ~RigidbodyConstraints.FreezePositionX;
     }
 }

@@ -37,6 +37,7 @@ public class MeteoritoBehavior : MonoBehaviour
         } else if (collision.gameObject.name.Contains ("Player")) {
             collision.gameObject.GetComponent<FuelControlador>().RestarCombustible();
             gameObject.GetComponent<MeshRenderer>().enabled = false;
+            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
             gameObject.GetComponent<SphereCollider>().enabled = false;
             Destroy(gameObject, 1f);
         }
